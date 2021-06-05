@@ -9,12 +9,6 @@ try:
     browser.get(link)
 
     # Ваш код, который заполняет обязательные поля
-    #input1 = browser.find_element_by_tag_name('label')
-    #input1.send_keys("Ivan")
-    #input2 = browser.find_element_by_tag_name('label')
-    #input2.send_keys("Petrov")
-    #input3 = browser.find_element_by_tag_name('label')
-    #input3.send_keys("Smolensk")
     elements = browser.find_elements_by_xpath("//input[@required]")
     for element in elements:
        element.send_keys("Мой ответ")
@@ -36,6 +30,5 @@ try:
 
 finally:
     # ожидание чтобы визуально оценить результаты прохождения скрипта
-    time.sleep(10)
     # закрываем браузер после всех манипуляций
     browser.quit()
