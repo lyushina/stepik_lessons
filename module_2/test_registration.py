@@ -14,11 +14,6 @@ try:
        element.send_keys("Мой ответ")
     button = browser.find_element_by_css_selector("button.btn")
     button.click()
-    # Отправляем заполненную форму
-    button = browser.find_element_by_css_selector("button.btn")
-    button.click()
-
-    # Проверяем, что смогли зарегистрироваться
 
     # находим элемент, содержащий текст
     welcome_text_elt = browser.find_element_by_tag_name("h1")
