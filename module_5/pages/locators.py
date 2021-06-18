@@ -13,3 +13,15 @@ class LoginPageLocators():
     REG_PASSWORD = (By.CSS_SELECTOR, '[name = "registration-password1"]')
     REG_PASSWORD_CONFIRM = (By.CSS_SELECTOR, '[name = "registration-password2"]')
     REG_BUTTON = (By.CSS_SELECTOR, '[name = "registration_submit"]')
+
+
+class ProductPageLocators():
+    PRODUCT_TITLE = (By.CSS_SELECTOR, '.product_main h1')
+    ADD_TO_BASKET_BUTTON = (By.CSS_SELECTOR, '#add_to_basket_form > button')
+    PRODUCT_PRICE = (By.CSS_SELECTOR, '.product_main .price_color')
+    CART_AMOUNT = (By.CSS_SELECTOR, '[class="basket-mini pull-right hidden-xs"]')
+    BASKET_PRODUCT_TITLE = (By.XPATH, '//*[@id="messages"]/div[1]/div/strong')
+
+
+
+
