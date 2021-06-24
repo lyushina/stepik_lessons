@@ -1,11 +1,17 @@
 from selenium.webdriver.common.by import By
 
 
-class MainPageLocators():
+class BasePageLocators():
+    BASKET_LINK = (By.CSS_SELECTOR,".basket-mini :nth-child(1).btn.btn-default")
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
+
+
+class MainPageLocators(BasePageLocators):
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
 
 
-class LoginPageLocators():
+class LoginPageLocators(BasePageLocators):
     LOGIN_EMAIL = (By.CSS_SELECTOR, '[name = "login-username"]')
     LOGIN_PASSWORD = (By.CSS_SELECTOR, '[name = "login-password"]')
     LOGIN_BUTTON = (By.CSS_SELECTOR, '[name = "login_submit"]')
@@ -13,9 +19,11 @@ class LoginPageLocators():
     REG_PASSWORD = (By.CSS_SELECTOR, '[name = "registration-password1"]')
     REG_PASSWORD_CONFIRM = (By.CSS_SELECTOR, '[name = "registration-password2"]')
     REG_BUTTON = (By.CSS_SELECTOR, '[name = "registration_submit"]')
+    USER_ICON = (By.CSS_SELECTOR, ".icon-user")
 
 
-class ProductPageLocators():
+class ProductPageLocators(BasePageLocators):
+    SUCCESS_MESSAGE = (By.CSS_SELECTOR, "#messages .alert-success .alertinner")
     PRODUCT_TITLE = (By.CSS_SELECTOR, '.product_main h1')
     ADD_TO_BASKET_BUTTON = (By.CSS_SELECTOR, '#add_to_basket_form > button')
     PRODUCT_PRICE = (By.CSS_SELECTOR, '.product_main .price_color')
@@ -23,5 +31,11 @@ class ProductPageLocators():
     BASKET_PRODUCT_TITLE = (By.XPATH, '//*[@id="messages"]/div[1]/div/strong')
 
 
+class BasketPageLocators(BasePageLocators):
 
-
+    BASKET_ALERT = (By.CSS_SELECTOR, '.alertinner')
+    BASKET_CONTENT = (By.CSS_SELECTOR, '.content > #content_inner')
+    BASKET_VIEW_BASKET_BUTTON = (By.CSS_SELECTOR, 'p:nth-child(2) >a:nth-child(1)')
+    BASKET_CHECKOUT_BUTTON = (By.CSS_SELECTOR, 'p:nth-child(2) >a:nth-child(2)')
+    BASKET_ORDER_TOTAL = (By.CSS_SELECTOR, '.total > .price_color')
+    BASKET_EMPTY_MESSAGE = (By.CSS_SELECTOR, '#content_inner > p:nth-child(1)')
