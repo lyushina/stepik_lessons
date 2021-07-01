@@ -17,26 +17,26 @@ class LoginPage(BasePage):
         self.check_is_register_form()
 
     def check_is_login_url(self):
-        assert self.is_string_in_current_url('login'), \
-            'No \"login\" string in url'
+        assert self.is_string_in_current_url("login"), \
+            "No \'login\' string in url"
 
     def check_is_login_form(self):
         assert self.is_element_present(*LoginPageLocators.LOGIN_EMAIL), \
-            'No email in login form'
+            "No email in login form"
         assert self.is_element_present(*LoginPageLocators.LOGIN_PASSWORD), \
-            'No password in login form'
+            "No password in login form"
 
     def check_is_register_form(self):
         assert self.is_element_present(*LoginPageLocators.REG_EMAIL), \
-            'No email in registration form'
+            "No email in registration form"
         assert self.is_element_present(*LoginPageLocators.REG_PASSWORD), \
-            'No password in registration form'
+            "No password in registration form"
         assert self.is_element_present(*LoginPageLocators.REG_PASSWORD_CONFIRM), \
-            'No password confirmation in registration form'
+            "No password confirmation in registration form"
 
     def check_registration_error(self):
         assert self.is_element_present(*LoginPageLocators.REG_ERROR), \
-            'No error message'
+            "No error message"
 
     def login_user(self):
         login_email_field = self.browser.find_element(*LoginPageLocators.LOGIN_EMAIL)

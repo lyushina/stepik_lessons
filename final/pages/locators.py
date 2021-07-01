@@ -19,6 +19,7 @@ class LoginPageLocators(BasePageLocators):
     REG_PASSWORD_CONFIRM = (By.CSS_SELECTOR, '[name = "registration-password2"]')
     REG_BUTTON = (By.CSS_SELECTOR, '[name = "registration_submit"]')
     USER_ICON = (By.CSS_SELECTOR, ".icon-user")
+    REG_ERROR = (By.CSS_SELECTOR, '#register_form>.has-error .error-block')
 
 
 class ProductPageLocators(BasePageLocators):
