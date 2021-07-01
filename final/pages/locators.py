@@ -42,3 +42,10 @@ class BasketPageLocators(BasePageLocators):
     BASKET_CHECKOUT_BUTTON = (By.CSS_SELECTOR, 'p:nth-child(2) >a:nth-child(2)')
     BASKET_ORDER_TOTAL = (By.CSS_SELECTOR, '.total > .price_color')
     BASKET_EMPTY_MESSAGE = (By.CSS_SELECTOR, '#content_inner > p:nth-child(1)')
+
+
+class AccountPageLocators(BasePageLocators):
+    DELETE_PROFILE_BUTTON = (By.CSS_SELECTOR, '#delete_profile')
+    DELETE_PASSWORD = (By.CSS_SELECTOR, '#id_password')
+    DELETE_CONFIRM = (By.CSS_SELECTOR, '.btn-danger')
+    CHANGE_PASSWORD_BUTTON = (By.CSS_SELECTOR, '')

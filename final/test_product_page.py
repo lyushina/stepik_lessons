@@ -1,8 +1,8 @@
 import time
 import pytest
-from .pages.basket_page import BasketPage
-from .pages.product_page import ProductPage
-from .pages.login_page import LoginPage
+from pages.basket_page import BasketPage
+from pages.product_page import ProductPage
+from pages.login_page import LoginPage
 
 link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
 promo_link = "?promo="
@@ -26,7 +26,7 @@ class TestLoginFromProductPage():
         page.go_to_login_page()
         login_page = LoginPage(browser, browser.current_url)
         # Assert
-        login_page.should_be_login_page()
+        login_page.check_login_link()
 
 
 class TestProductPage:
@@ -71,7 +71,7 @@ class TestUserAddToBasketFromProductPage():
         self.page.open()
         self.page.go_to_login_page()
         email = str(time.time()) + "@mail.com"
-        password = "123456789"
+        password = "Passw0rd1!!"
         self.page.register_new_user(email, password)
         self.page.should_be_authorized_user()
 

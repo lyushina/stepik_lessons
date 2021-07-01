@@ -68,3 +68,26 @@ class BasePage:
 
     def get_element_text(self, how, what):
         return self.browser.find_element(how, what).text
+
+    def is_string_in_current_url(self, string):
+        return string in self.browser.current_url
+
+    def go_to_account_page(self):
+        account_link = self.browser.find_element(*BasePageLocators.ACCOUNT_LINK)
+        account_link.click()
+
+    def logout_user(self):
+        logout_link = self.browser.find_element(*BasePageLocators.LOGOUT_LINK)
+        logout_link.click()
+
+    def is_user_logged_in(self):
+        return self.is_element_present(*BasePageLocators.ACCOUNT_LINK)
+
+    def is_user_logged_out(self):
+        return self.is_element_present(*BasePageLocators.LOGIN_LINK)
+
+    def check_is_user_logged_in(self):
+        assert self.is_user_logged_in() is True, "User is not logged in"
+
+    def check_is_user_logged_out(self):
+        assert self.is_user_logged_out() is True, "User is logged in"

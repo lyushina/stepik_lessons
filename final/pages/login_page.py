@@ -1,39 +1,70 @@
 from .base_page import BasePage
 from .locators import LoginPageLocators
+from .helpers import helper
 
 
 class LoginPage(BasePage):
-    def should_be_login_page(self):
-        self.should_be_login_url()
-        self.should_be_login_form()
-        self.should_be_register_form()
+    def __init__(self, browser, timeout=10):
+        super().__init__(browser, timeout)
+        self.account_page = None
+        self.valid_password = helper.get_valid_password()
+        self.invalid_password = helper.get_weak_password()
+        self.email = helper.generate_valid_email()
 
-    def should_be_login_url(self):
-        assert "login" in self.browser.current_url, "Incorrect login URL"
-        assert True
+    def check_is_login_page(self):
+        self.check_is_login_url()
+        self.check_is_login_form()
+        self.check_is_register_form()
 
-    def should_be_login_form(self):
-        assert self.is_element_present(*LoginPageLocators.LOGIN_EMAIL), "Login email field is not allocated"
-        assert self.is_element_present(*LoginPageLocators.LOGIN_PASSWORD), "Login Password field is not allocated"
-        assert self.is_element_present(*LoginPageLocators.LOGIN_BUTTON), "Login submit button is not allocated"
-        assert True
+    def check_is_login_url(self):
+        assert self.is_string_in_current_url('login'), \
+            'No \"login\" string in url'
 
-    def should_be_register_form(self):
-        assert self.is_element_present(*LoginPageLocators.REG_EMAIL), "Registration email field is not allocated"
-        assert self.is_element_present(*LoginPageLocators.REG_PASSWORD), "Registration Password field is not allocated"
-        assert self.is_element_present(
-            *LoginPageLocators.REG_PASSWORD_CONFIRM), "Registration Password confirm field is not allocated"
-        assert self.is_element_present(*LoginPageLocators.REG_BUTTON), "Registration submit button is not allocated"
-        assert True
+    def check_is_login_form(self):
+        assert self.is_element_present(*LoginPageLocators.LOGIN_EMAIL), \
+            'No email in login form'
+        assert self.is_element_present(*LoginPageLocators.LOGIN_PASSWORD), \
+            'No password in login form'
 
-    def register_new_user(self, email, password):
-        email_field = self.browser.find_element(*LoginPageLocators.REG_EMAIL)
-        email_field.send_keys(email)
-        password_field = self.browser.find_element(*LoginPageLocators.REG_PASSWORD)
-        password_field.send_keys(password)
-        confirm_password_field = self.browser.find_element(*LoginPageLocators.REG_PASSWORD_CONFIRM)
-        confirm_password_field.send_keys(password)
-        submit_button = self.browser.find_element(*LoginPageLocators.REG_BUTTON)
-        submit_button.click()
+    def check_is_register_form(self):
+        assert self.is_element_present(*LoginPageLocators.REG_EMAIL), \
+            'No email in registration form'
+        assert self.is_element_present(*LoginPageLocators.REG_PASSWORD), \
+            'No password in registration form'
+        assert self.is_element_present(*LoginPageLocators.REG_PASSWORD_CONFIRM), \
+            'No password confirmation in registration form'
+
+    def check_registration_error(self):
+        assert self.is_element_present(*LoginPageLocators.REG_ERROR), \
+            'No error message'
+
+    def login_user(self):
+        login_email_field = self.browser.find_element(*LoginPageLocators.LOGIN_EMAIL)
+        login_password_field = self.browser.find_element(*LoginPageLocators.LOGIN_PASSWORD)
+        login_button = self.browser.find_element(*LoginPageLocators.LOGIN_BUTTON)
+        login_email_field.send_keys(self.email)
+        login_password_field.send_keys(self.valid_password)
+        login_button.click()
+
+    def register_new_user(self, weak_password=False):
+        reg_email_field = self.browser.find_element(*LoginPageLocators.REG_EMAIL)
+        reg_password_field = self.browser.find_element(*LoginPageLocators.REG_PASSWORD)
+        reg_password_repeat_field = self.browser.find_element(*LoginPageLocators.REG_PASSWORD_CONFIRM)
+        reg_button = self.browser.find_element(*LoginPageLocators.REG_BUTTON)
+        reg_email_field.send_keys(self.email)
+        if not weak_password:
+            reg_password_field.send_keys(self.valid_password)
+            reg_password_repeat_field.send_keys(self.valid_password)
+        else:
+            reg_password_field.send_keys(self.invalid_password)
+            reg_password_repeat_field.send_keys(self.invalid_password)
+        reg_button.click()
+
+    def check_is_user_logged_out(self):
+        # Act
+        self.account_page.go_to_logout_link()
+        # Assert
+        self.account_page.should_be_unauthorized_user()
+
 
 
